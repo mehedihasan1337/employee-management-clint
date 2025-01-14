@@ -1,11 +1,18 @@
 import React from 'react';
 import Navber from '../components/Navber';
+import { Outlet } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const Main = () => {
     return (
         <div className='font-roboto'>
-           <section className="z-10 bg-opacity-30 bg-blue-500 "> <Navber></Navber></section>
+            <section className=" bg-opacity-50 bg-blue-500 "> <Navber></Navber></section>
+
+            <Outlet></Outlet>
+            <section><Footer></Footer></section>
+
         </div>
+
     );
 };
 
