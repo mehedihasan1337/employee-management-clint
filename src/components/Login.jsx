@@ -32,7 +32,7 @@ const Login = () => {
                 draggable: true
               });
            
-            //   navigate(from,{replace:true})
+              navigate(from,{replace:true})
 
         })
     }

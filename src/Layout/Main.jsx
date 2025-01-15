@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 const Main = () => {
     return (
         <div className='font-roboto'>
-            <section className=" bg-opacity-50 bg-blue-500 "> <Navber></Navber></section>
+            <section className=" bg-opacity-50 bg-blue-500 hover:bg-blue-600"> <Navber></Navber></section>
 
             <Outlet></Outlet>
             <section><Footer></Footer></section>
