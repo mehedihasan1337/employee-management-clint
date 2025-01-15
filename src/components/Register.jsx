@@ -12,7 +12,7 @@ const Register = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const { createUser, updateUserProfile } = useContext(AuthContext)
     const navigate = useNavigate()
-    const onSubmit = data => {
+    const onSubmit =( data) => {
         console.log(data)
         createUser(data.email, data.password)
             .then(result => {
