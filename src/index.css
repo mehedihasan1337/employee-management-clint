@@ -7,3 +7,11 @@
 .carousel .thumbs-wrapper{
     @apply flex justify-center items-center hidden
     }
+
+    .active{
+      background-color: aliceblue;
+      color: blue;
+      padding-left: 6px;
+      padding-right: 6px;
+      border-radius: 5px;
+    }

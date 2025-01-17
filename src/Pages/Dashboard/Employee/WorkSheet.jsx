@@ -1,12 +1,38 @@
 
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import MyWorkSheet from './MyWorkSheet';
+import useAuth from '../../../hooks/useAuth';
 
 
 const WorkSheet = () => {
-    const { register, handleSubmit } = useForm()
-
-    const onSubmit = (data) => {
+    const{user}=useAuth()
+    const { register, handleSubmit,reset } = useForm()
+    const axiosSecure= useAxiosSecure()
+    const onSubmit =async (data) => {
         console.log(data)
+        
+            const workSheet={
+                tasks:data.tasks,
+                hours:data.hours,
+                date:data.date,
+                email:user.email
+            }
+            const sheetRes =await axiosSecure.post('/sheets',workSheet)
+            console.log(sheetRes.data)
+            if(sheetRes.data.insertedId){
+                
+                reset()
+                Swal.fire({
+                    position: "top",
+                    icon: "success",
+                    title: `${data.tasks} is added to the Work Sheet`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }
+        
     }
     return (
         <div>
@@ -49,6 +75,8 @@ const WorkSheet = () => {
                     </div>
                 </form>
             </div>
+
+            <MyWorkSheet></MyWorkSheet>
 
         </div>
     );

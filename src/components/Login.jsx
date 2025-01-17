@@ -5,6 +5,7 @@ import Lottie from 'lottie-react';
 import { useContext, useEffect } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import Swal from 'sweetalert2';
+import GoogleLogin from './SocialLogin/GoogleLogin';
 
 const Login = () => {
  
@@ -79,6 +80,10 @@ const Login = () => {
                             <button className="btn rounded-none text-white text-xl font-bold btn-primary">Login</button>
                         </div>
                     </form>
+                    <div className='divider font-bold font-roboto text-xl'>or</div>
+                        <div className='text-center text-4xl'>
+                        <GoogleLogin></GoogleLogin>
+                        </div>
                 </div>
                </div>
             </div>

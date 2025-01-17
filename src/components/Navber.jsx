@@ -15,13 +15,14 @@ const Navber = () => {
         <div className=''>
             <div className="navbar  lg:max-w-screen-xl lg:mx-36  ">
                 <div className="flex-1 gap-2">
-                    <img className='md:w-10 w-6' src="https://i.ibb.co.com/98qSn7J/Employee-Logo.png" alt="" />
+                    <img id='home' className='md:w-10 w-6' src="https://i.ibb.co.com/98qSn7J/Employee-Logo.png" alt="" />
                     <h2 className='lg:text-2xl hidden lg:block font-roboto font-bold text-white'>Employee M.</h2>
                 </div>
                 <div className='gap-3'>
            {
             user ? <>
             <NavLink to="/dashboard" className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg  ">Dashboard</NavLink>
+            <NavLink to="/" className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg  ">Home</NavLink>
             </>:<>
             <NavLink to="/login" className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg ">Login</NavLink>
                     <NavLink to="/register" className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg  ">Register</NavLink>

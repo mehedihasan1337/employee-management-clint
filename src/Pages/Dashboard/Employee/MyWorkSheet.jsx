@@ -1,0 +1,60 @@
+import React, { useEffect, useState } from 'react';
+import useAuth from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { MdDeleteForever } from 'react-icons/md';
+import { FaEdit } from 'react-icons/fa';
+
+const MyWorkSheet = () => {
+    const{user}=useAuth()
+    const [sheets,setSheets]=useState([])
+   const axiosSecure=useAxiosSecure()
+
+   useEffect(()=>{
+    fetchAllSheets()
+},[])
+const fetchAllSheets = async()=>{
+    const {data}=await axiosSecure.get(`/sheets/${user?.email}`)
+       
+    setSheets(data)
+    
+}
+console.log(sheets)
+    return (
+        <div>
+             <div className="overflow-x-auto">
+  <table className="table table-xs">
+    {/* head */}
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Tasks</th>
+        <th>Hours</th>
+        <th>Date</th>
+        <th>Delete</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {/* row 1 */}
+  {
+    sheets.map((sheet,index)=><tr key={sheet._id}>
+        <th>{index+1}</th>
+        <td>{sheet.tasks}</td>
+        <td>{sheet.hours}</td>
+        <td>{sheet.date}</td>
+        <td><button className='text-red-600 text-2xl hover:text-3xl'>
+        <MdDeleteForever /></button> </td>
+        <td><button  className='text-green-600 text-2xl hover:text-3xl'>
+        <FaEdit
+         /> </button></td>
+      </tr>)
+  }
+    
+    </tbody>
+  </table>
+</div>
+        </div>
+    );
+};
+
+export default MyWorkSheet;

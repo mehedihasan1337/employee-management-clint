@@ -7,12 +7,17 @@ import { AuthContext } from '../Provider/AuthProvider';
 import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../hooks/useAxiosPublic';
+import GoogleLogin from './SocialLogin/GoogleLogin';
+
 
 const Register = () => {
+    const axiosPublic = useAxiosPublic()
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const { createUser, updateUserProfile } = useContext(AuthContext)
     const navigate = useNavigate()
-    const onSubmit =( data) => {
+    const onSubmit = (data) => {
         console.log(data)
         createUser(data.email, data.password)
             .then(result => {
@@ -20,14 +25,30 @@ const Register = () => {
                 console.log(loginUser)
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
-                        console.log('user added to the database')
-                        reset()
-                        Swal.fire({
-                            title: "success!",
-                            icon: "success",
-                            draggable: true
-                        });
-                        navigate("/")
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                            role: data.role,
+                            accountNo: data.accountNo,
+                            salary: parseFloat(data.salary),
+                            designation: data.designation,
+                            photoURL:data.photoURL
+
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user added to the data base')
+                                    reset()
+                                    Swal.fire({
+                                        title: "success!",
+                                        icon: "success",
+                                        draggable: true
+                                    });
+                                    navigate("/")
+                                }
+                            })
+
                     })
             })
     }
@@ -65,9 +86,9 @@ const Register = () => {
                                     <select defaultValue="default" {...register("role", { required: true })}
                                         className="select select-bordered  text-blue-700 font-semibold w-full bg-opacity-30 rounded-none text-xl ">
                                         <option disabled value="default">Roles </option>
-                                        <option value="Employee">Employee</option>
-                                        <option value="HR">HR</option>
-                                        <option disabled={true} value="Admin">Admin</option>
+                                        <option value="employee">Employee</option>
+                                        <option value="hr">HR</option>
+                                        <option disabled={true} value="admin">Admin</option>
 
                                     </select>
                                 </div>
@@ -159,21 +180,28 @@ const Register = () => {
                                 {errors.photoURL && <span className="text-red-600 ">Photo is required</span>}
 
                             </div> */}
-                             <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Photo Url</span>
-                            </label>
-                            <input type="text" {...register("photoURL",
-                                { required: true })}
-                                placeholder="Photo Url" className="input input-bordered" />
-                            {errors.photoURL && <span className="text-red-500">Photo URl is required</span>}
-                        </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo Url</span>
+                                </label>
+                                <input type="text" {...register("photoURL",
+                                    { required: true })}
+                                    placeholder="Photo Url" className="input input-bordered" />
+                                {errors.photoURL && <span className="text-red-500">Photo URl is required</span>}
+                            </div>
+                         
+
 
                             {/* disabled={disabled}  */}
                             <div className="form-control mt-6">
                                 <button className="btn rounded-none text-white text-xl font-bold btn-primary">Register</button>
                             </div>
                         </form>
+                        <div className='divider font-bold font-roboto text-xl'>or</div>
+                        <div className='text-center text-4xl'>
+                        <GoogleLogin></GoogleLogin>
+                        
+                        </div>
                     </div>
                 </div>
             </div>
