@@ -3,22 +3,44 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { MdDeleteForever } from 'react-icons/md';
 import { FaEdit } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import useSheet from '../../../hooks/useSheet';
 
 const MyWorkSheet = () => {
-    const{user}=useAuth()
-    const [sheets,setSheets]=useState([])
+    const[sheets,refetch]=useSheet()
+  
    const axiosSecure=useAxiosSecure()
 
-   useEffect(()=>{
-    fetchAllSheets()
-},[])
-const fetchAllSheets = async()=>{
-    const {data}=await axiosSecure.get(`/sheets/${user?.email}`)
-       
-    setSheets(data)
-    
+const handleDelete = id => {
+  Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+      if (result.isConfirmed) {
+
+          axiosSecure.delete(`/sheets/${id}`)
+              .then(res => {
+                  if (res.data.deletedCount > 0)
+                      refetch()
+                  Swal.fire({
+                      title: "Deleted!",
+                      text: "Your file has been deleted.",
+                      icon: "success"
+                  });
+              })
+
+      }
+  });
 }
-console.log(sheets)
+
+
+
+
     return (
         <div>
              <div className="overflow-x-auto">
@@ -42,7 +64,7 @@ console.log(sheets)
         <td>{sheet.tasks}</td>
         <td>{sheet.hours}</td>
         <td>{sheet.date}</td>
-        <td><button className='text-red-600 text-2xl hover:text-3xl'>
+        <td><button onClick={()=>handleDelete(sheet._id)} className='text-red-600 text-2xl hover:text-3xl'>
         <MdDeleteForever /></button> </td>
         <td><button  className='text-green-600 text-2xl hover:text-3xl'>
         <FaEdit
