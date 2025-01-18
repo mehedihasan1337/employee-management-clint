@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import MyWorkSheet from './MyWorkSheet';
 import useAuth from '../../../hooks/useAuth';
+import UpdateWorkSheet from './UpdateWorkSheet';
 
 
 const WorkSheet = () => {
@@ -77,6 +78,7 @@ const WorkSheet = () => {
             </div>
 
             <MyWorkSheet></MyWorkSheet>
+            
 
         </div>
     );
