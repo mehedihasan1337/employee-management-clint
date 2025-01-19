@@ -1,5 +1,6 @@
 
 import { NavLink, Outlet } from 'react-router-dom';
+import Footer from '../components/Footer';
 // import useAdmin from '../hooks/useAdmin';
 // import useHr from '../hooks/useHr';
 
@@ -117,7 +118,9 @@ const Dashboard = () => {
             </div>
             <div className='lg:p-10 px-3 py-6'>
                 <Outlet></Outlet>
+                
             </div>
+            
         </div>
     );
 };

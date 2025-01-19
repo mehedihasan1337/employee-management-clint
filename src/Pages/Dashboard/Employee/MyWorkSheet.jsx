@@ -45,11 +45,11 @@ const MyWorkSheet = () => {
 
   return (
     <div>
-      <div className="overflow-x-auto">
-        <table className="table table-xs">
+      <div className="overflow-x-auto font-roboto">
+        <table className="table table-xs font-roboto">
           {/* head */}
           <thead>
-            <tr>
+            <tr className='font-roboto font-semibold text-blue-600  text-xs md:text-lg ' >
               <th>No</th>
               <th>Tasks</th>
               <th>Hours</th>
@@ -61,26 +61,26 @@ const MyWorkSheet = () => {
           <tbody>
             {/* row 1 */}
             {
-              sheets.map((sheet, index) => <tr key={sheet._id}>
-                <th>{index + 1}</th>
-                <td>{sheet.tasks}</td>
-                <td>{sheet.hours}</td>
-                <td>{sheet.date}</td>
-                <td><button onClick={() => handleDelete(sheet._id)} className='text-red-600 text-2xl hover:text-3xl'>
+              sheets.map((sheet, index) => <tr className='font-roboto font-semibold text-black '  key={sheet._id}>
+                <th className='text-xs md:text-lg' >{index + 1}</th>
+                <td className='text-xs md:text-lg'>{sheet.tasks}</td>
+                <td className='text-xs md:text-lg'>{sheet.hours}</td>
+                <td className='text-xs md:text-lg'>{sheet.date}</td>
+                <td className='text-xs md:text-lg'><button onClick={() => handleDelete(sheet._id)} className='text-red-600 text-2xl hover:text-3xl'>
                   <MdDeleteForever /></button> </td>
                 <td>
                   <Link to={`/dashboard/UpdateSheet/${sheet._id}`}>
 
                   
-                  <button className='text-green-600 text-2xl hover:text-3xl' onClick={() => document.getElementById(sheet._id).showModal()}><FaEdit/></button>
-                  <dialog id={sheet._id} className="modal">
+                  <button className='text-green-600 text-2xl hover:text-3xl' onClick={() => document.getElementById(`/dashboard/UpdateSheet/${sheet._id}`).showModal()}><FaEdit/></button>
+                  <dialog id={`/dashboard/UpdateSheet/${sheet._id}`} className="modal">
                     <div className="modal-box">
                       <form method="dialog">
-
+                      <UpdateWorkSheet></UpdateWorkSheet>
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                       </form>
-                      <UpdateWorkSheet></UpdateWorkSheet>
+                      
                     </div>
                   </dialog>
 

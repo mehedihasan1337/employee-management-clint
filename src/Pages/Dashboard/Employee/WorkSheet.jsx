@@ -4,13 +4,15 @@ import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import MyWorkSheet from './MyWorkSheet';
 import useAuth from '../../../hooks/useAuth';
-import UpdateWorkSheet from './UpdateWorkSheet';
+
 
 
 const WorkSheet = () => {
     const{user}=useAuth()
+    console.log(user)
     const { register, handleSubmit,reset } = useForm()
     const axiosSecure= useAxiosSecure()
+  
     const onSubmit =async (data) => {
         console.log(data)
         
@@ -18,7 +20,10 @@ const WorkSheet = () => {
                 tasks:data.tasks,
                 hours:data.hours,
                 date:data.date,
-                email:user.email
+                email:user?.email,
+                name:user?.displayName,
+                
+
             }
             const sheetRes =await axiosSecure.post('/sheets',workSheet)
             console.log(sheetRes.data)

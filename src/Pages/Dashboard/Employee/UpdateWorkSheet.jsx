@@ -54,9 +54,9 @@ const UpdateWorkSheet = () => {
     return (
         <div>
             <div >
-                <p>{sheet.id}</p>
+              
                 <h2 className='text-center lg:text-3xl md:text-2xl text-xl
-                   font-bold font-roboto text-blue-700'>Update Work Sheet {sheetUp?.tasks}</h2>
+                   font-bold font-roboto text-blue-700'>Update Work Sheet</h2>
                 <form onSubmit={handleSubmit(onSubmit)}
                     className="flex  flex-col gap-3 ">
                     <div className='form-control w-full '>

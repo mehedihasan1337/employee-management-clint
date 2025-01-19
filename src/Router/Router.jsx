@@ -11,6 +11,7 @@ import Dashboard from './../Layout/Dashboard';
 import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet";
 import PaymentHistory from "../Pages/Dashboard/Employee/PaymentHistory";
 import UpdateWorkSheet from "../Pages/Dashboard/Employee/UpdateWorkSheet";
+import EmployeeList from "../Pages/Dashboard/Hr/EmployeeList";
 
 const router = createBrowserRouter([
   {
@@ -36,12 +37,16 @@ const router = createBrowserRouter([
       {
         path:"UpdateSheet/:id",
         element:<UpdateWorkSheet></UpdateWorkSheet>,
-        // loader:({params})=> fetch(`http://localhost:5000/sheets/single/${params.id}`)
+        
       },
       {
         path:"payment-history",
         element:<PaymentHistory></PaymentHistory>
-      }
+      },
+      {
+        path:"employee-list",
+        element:<EmployeeList></EmployeeList>
+      },
     ]
   },
   {
