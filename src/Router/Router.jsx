@@ -10,8 +10,10 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from './../Layout/Dashboard';
 import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet";
 import PaymentHistory from "../Pages/Dashboard/Employee/PaymentHistory";
-import UpdateWorkSheet from "../Pages/Dashboard/Employee/UpdateWorkSheet";
+// import UpdateWorkSheet from "../Pages/Dashboard/Employee/UpdateWorkSheet";
 import EmployeeList from "../Pages/Dashboard/Hr/EmployeeList";
+import Progress from "../Pages/Dashboard/Hr/Progress";
+import AllEmployeeList from "../Pages/Dashboard/Admin/AllEmployeeList";
 
 const router = createBrowserRouter([
   {
@@ -34,19 +36,30 @@ const router = createBrowserRouter([
         path:"work-sheet",
         element:<WorkSheet></WorkSheet>
       },
-      {
-        path:"UpdateSheet/:id",
-        element:<UpdateWorkSheet></UpdateWorkSheet>,
+      // {
+      //   path:"UpdateSheet/:id",
+      //   element:<UpdateWorkSheet></UpdateWorkSheet>,
         
-      },
+      // },
       {
         path:"payment-history",
         element:<PaymentHistory></PaymentHistory>
       },
+      // hr
       {
         path:"employee-list",
         element:<EmployeeList></EmployeeList>
       },
+      {
+        path:"progress",
+        element:<Progress></Progress>
+      },
+      // admin
+      {
+        path:"all-employee-list",
+        element:<AllEmployeeList></AllEmployeeList>
+      },
+      
     ]
   },
   {

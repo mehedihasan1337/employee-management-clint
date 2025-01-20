@@ -29,7 +29,7 @@ const Register = () => {
                             name: data.name,
                             email: data.email,
                             role: data.role,
-                            accountNo: data.accountNo,
+                            accountNo: parseFloat(data.accountNo),
                             salary: parseFloat(data.salary),
                             designation: data.designation,
                             photoURL:data.photoURL
@@ -108,9 +108,16 @@ const Register = () => {
                                 <label className="label">
                                     <span className="text-black font-bold">Bank Account No*</span>
                                 </label>
-                                <input type="text" {...register('accountNo', { required: true })} placeholder="Bank Account No"
+                                <input type="number" {...register('accountNo', { required: true,
+                                    minLength: 16,
+                                    maxLength: 16,
+                                 })} placeholder="Bank Account No"
                                     className="input text-black font-semibold w-full bg-opacity-30 rounded-none input-bordered" />
                                 {errors.accountNo && <span className="text-red-600 ">Bank Account No is required</span>}
+                                {errors.accountNo?.type === 'minLength' &&
+                                    <p className="text-red-600">Account No must be 16 characters</p>}
+                                {errors.accountNo?.type === 'maxLength' &&
+                                    <p className="text-red-600">Account No must be less then 16 characters</p>}
                             </div>
                             <div className='flex gap-3'>
                                 {/* salary */}
