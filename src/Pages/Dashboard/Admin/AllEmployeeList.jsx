@@ -66,8 +66,8 @@ const AllEmployeeList = () => {
                 }
             })
     }
-    const handleFire = user => {
-        axiosSecure.patch(`/users/fire/${user._id}`, { isFired: true })
+    const handleFireUser = user => {
+        axiosSecure.patch(`/users/fire/${user._id}`,{ isFired: true })
             .then(res => {
                 console.log(res.data)
                 if (res.data.modifiedCount > 0) {
@@ -79,12 +79,15 @@ const AllEmployeeList = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    document.getElementById(`fire/${user._id}`).close();
+                    document.getElementById(`fire/${user?._id}`).close();
 
                     refetch();
                 }
+               
             })
+
     }
+
 
 
     return (
@@ -142,27 +145,27 @@ const AllEmployeeList = () => {
                                     ) : (
                                         <button
                                             className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-                                            onClick={() => document.getElementById(`fire/${user._id}`).showModal()}
+                                            onClick={() => document.getElementById(`fire/${user?._id}`).showModal()}
                                         >
                                             Fire
                                         </button>
                                     )}
 
                                     {/* Modal */}
-                                    <dialog id={`fire/${user._id}`} className="modal">
+                                    <dialog id={`fire/${user?._id}`} className="modal">
                                         <div className="modal-box">
                                             <h3 className="font-bold text-lg">Are you sure you want to fire {user.name}?</h3>
                                             <p className="py-4">This action will deactivate the user account.</p>
                                             <div className="modal-action">
                                                 <button
                                                     className="btn btn-error"
-                                                    onClick={() => handleFire(user._id)}
+                                                    onClick={() => handleFireUser(user)}
                                                 >
                                                     Confirm
                                                 </button>
                                                 <button
                                                     className="btn"
-                                                    onClick={() => document.getElementById(`fire/${user._id}`).close()}
+                                                    onClick={() => document.getElementById(`fire/${user?._id}`).close()}
                                                 >
                                                     Cancel
                                                 </button>
