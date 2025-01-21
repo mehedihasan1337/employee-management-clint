@@ -98,16 +98,16 @@ const AllEmployeeList = () => {
                 <table className="table table-xs font-roboto  ">
                     {/* head */}
                     <thead>
-                        <tr className='font-roboto font-semibold  text-white bg-blue-500 text-xs md:text-lg' >
-                            <th>No</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Designation</th>
-                            <th>accountNo</th>
-                            <th>salary</th>
-                            <th>Adjust Salary</th>
-                            <th>Make HR</th>
-                            <th>Fire</th>
+                        <tr className='font-roboto font-semibold  text-white  text-xs md:text-lg' >
+                            <th className='text-center bg-blue-500' >No</th>
+                            <th className='text-center bg-blue-600'>Name</th>
+                            <th className='text-center bg-blue-500'>Email</th>
+                            <th className='text-center bg-blue-600'>Designation</th>
+                            <th className='text-center bg-blue-500'>accountNo</th>
+                            <th className='text-center bg-blue-600'>salary</th>
+                            <th className='text-center bg-blue-500'>Adjust Salary</th>
+                            <th className='text-center bg-blue-600'>Make HR</th>
+                            <th className='text-center bg-blue-500'>Fire</th>
 
 
 
@@ -117,12 +117,12 @@ const AllEmployeeList = () => {
                         {/* row 1 */}
                         {
                             filteredUsers.map((user, index) => <tr className='font-roboto font-semibold text-black ' key={user._id}>
-                                <th className='text-xs md:text-lg' >{index + 1}</th>
-                                <td className='text-xs md:text-lg'>{user.name}</td>
+                                <th className='text-xs md:text-lg ' >{index + 1}</th>
+                                <td className='text-xs md:text-lg bg-slate-200'>{user.name}</td>
                                 <td className='text-xs md:text-lg'>{user.email}</td>
-                                <td className='text-xs md:text-lg'>{user.designation}</td>
+                                <td className='text-xs md:text-lg bg-slate-200'>{user.designation}</td>
                                 <td className='text-xs md:text-lg'>{user.accountNo}</td>
-                                <td className='text-xs md:text-lg text-center'>{user.salary}</td>
+                                <td className='text-xs md:text-lg text-center bg-slate-200'>{user.salary}</td>
                                 <td className='text-xs md:text-lg text-center'>
                                     <button
                                         className='text-green-600 text-2xl hover:text-3xl'
@@ -131,7 +131,7 @@ const AllEmployeeList = () => {
                                         <TbCreditCardPay />
                                     </button>
                                 </td>
-                                <td className='text-xs md:text-lg text-center'>
+                                <td className='text-xs md:text-lg text-center bg-slate-200'>
                                     {user.role === 'hr' ? <button className='text-green-600 text-2xl hover:text-3xl'>
                                         <FaUserCog /></button>
                                         :

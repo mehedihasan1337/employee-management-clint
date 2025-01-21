@@ -20,13 +20,13 @@ const axiosSecure=useAxiosSecure()
         <table className="table table-xs font-roboto ">
           {/* head */}
           <thead>
-            <tr className='font-roboto font-semibold text-white bg-blue-500 text-xs md:text-lg' >
-              <th>No</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Tasks</th>
-              <th>Hours</th>
-              <th>Date</th>
+            <tr className='font-roboto font-semibold text-whitetext-xs md:text-lg' >
+              <th className='text-center bg-blue-500'>No</th>
+              <th className='text-center bg-blue-600'>Name</th>
+              <th className='text-center bg-blue-500'>Email</th>
+              <th className='text-center bg-blue-600'>Tasks</th>
+              <th className='text-center bg-blue-500'>Hours</th>
+              <th className='text-center bg-blue-600'>Date</th>
              
             </tr>
           </thead>
@@ -34,12 +34,12 @@ const axiosSecure=useAxiosSecure()
             {/* row 1 */}
             {
               sheets.map((sheet, index) => <tr className='font-roboto font-semibold text-black '  key={sheet._id}>
-                <th className='text-xs md:text-lg' >{index + 1}</th>
-                <td className='text-xs md:text-lg'>{sheet.name}</td>
-                <td className='text-xs md:text-lg'>{sheet.email}</td>
-                <td className='text-xs md:text-lg'>{sheet.tasks}</td>
-                <td className='text-xs md:text-lg'>{sheet.hours}</td>
-                <td className='text-xs md:text-lg'>{sheet.date}</td>
+                <th className='text-xs md:text-lg text-center ' >{index + 1}</th>
+                <td className='text-xs md:text-lg bg-slate-200'>{sheet.name}</td>
+                <td className='text-xs md:text-lg '>{sheet.email}</td>
+                <td className='text-xs md:text-lg  bg-slate-200'>{sheet.tasks}</td>
+                <td className='text-xs md:text-lg text-center '>{sheet.hours}</td>
+                <td className='text-xs md:text-lg  bg-slate-200'>{sheet.date}</td>
                
               </tr>)
             }

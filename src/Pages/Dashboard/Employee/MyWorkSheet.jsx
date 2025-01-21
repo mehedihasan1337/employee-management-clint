@@ -71,30 +71,30 @@ const [selectedUser, setSelectedUser] = useState(null)
 
   return (
     <div>
-      <div className="overflow-x-auto w-60 sm:w-96 md:w-11/12 lg:w-full  text-xs">
+      <div className="overflow-x-auto mt-8 w-60 sm:w-96 md:w-11/12 lg:w-full  text-xs">
         <table className="table table-xs font-roboto">
           {/* head */}
           <thead>
-            <tr className='font-roboto font-semibold text-blue-600  text-xs md:text-lg ' >
-              <th>No</th>
-              <th>Tasks</th>
-              <th>Hours</th>
-              <th>Date</th>
-              <th>Delete</th>
-              <th>Edit</th>
+            <tr className='font-roboto font-semibold text-white  text-xs md:text-lg ' >
+              <th className='text-center bg-blue-500'>No</th>
+              <th className='text-center bg-blue-600'>Tasks</th>
+              <th className='text-center bg-blue-500'>Hours</th>
+              <th className='text-center bg-blue-600'>Date</th>
+              <th className='text-center bg-blue-500'>Delete</th>
+              <th className='text-center bg-blue-600'>Edit</th>
             </tr>
           </thead>
           <tbody>
             {/* row 1 */}
             {
               sheets.map((sheet, index) => <tr className='font-roboto font-semibold text-black '  key={sheet._id}>
-                <th className='text-xs md:text-lg' >{index + 1}</th>
-                <td className='text-xs md:text-lg'>{sheet.tasks}</td>
-                <td className='text-xs md:text-lg'>{sheet.hours}</td>
-                <td className='text-xs md:text-lg'>{sheet.date}</td>
-                <td className='text-xs md:text-lg'><button onClick={() => handleDelete(sheet._id)} className='text-red-600 text-2xl hover:text-3xl'>
+                <th className='text-xs md:text-lg text-center' >{index + 1}</th>
+                <td className='text-xs md:text-lg text-center bg-slate-200'>{sheet.tasks}</td>
+                <td className='text-xs md:text-lg text-center'>{sheet.hours}</td>
+                <td className='text-xs md:text-lg text-center bg-slate-200'>{sheet.date}</td>
+                <td className='text-xs md:text-lg text-center'><button onClick={() => handleDelete(sheet._id)} className='text-red-600 text-2xl hover:text-3xl'>
                   <MdDeleteForever /></button> </td>
-               <td>
+               <td className='text-xs md:text-lg text-center bg-slate-200'>
                                                   <button
                                                       className='text-green-600 text-2xl hover:text-3xl'
                                                       onClick={() => setSelectedUser(sheet)}
