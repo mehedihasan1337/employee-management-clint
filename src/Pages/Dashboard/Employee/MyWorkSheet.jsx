@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { MdDeleteForever } from 'react-icons/md';
@@ -11,8 +11,8 @@ import useAuth from '../../../hooks/useAuth';
 
 const MyWorkSheet = () => {
   const [sheets, refetch] = useSheet()
-const [selectedUser, setSelectedUser] = useState(null)
-     const { register, handleSubmit , reset } = useForm()
+  const [selectedUser, setSelectedUser] = useState(null)
+  const { register, handleSubmit, reset } = useForm()
   const axiosSecure = useAxiosSecure()
   const { user } = useAuth()
 
@@ -42,30 +42,30 @@ const [selectedUser, setSelectedUser] = useState(null)
       }
     });
   }
- const onSubmit = async (data) => {
-        console.log(data)
+  const onSubmit = async (data) => {
+    console.log(data)
 
-        const workSheet = {
-            tasks: data.tasks,
-            hours: data.hours,
-            date: data.date,
-            email: user.email
-        }
-        const sheetRes = await axiosSecure.patch(`/sheets/update/${selectedUser._id}`, workSheet)
-        console.log(sheetRes.data)
-        if (sheetRes.data.modifiedCount > 0) {
-
-          reset()
-            Swal.fire({
-                position: "top",
-                icon: "success",
-                title:'is Updated to the Work Sheet',
-                showConfirmButton: false,
-                timer: 1500
-            });
-        }
-
+    const workSheet = {
+      tasks: data.tasks,
+      hours: data.hours,
+      date: data.date,
+      email: user.email
     }
+    const sheetRes = await axiosSecure.patch(`/sheets/update/${selectedUser._id}`, workSheet)
+    console.log(sheetRes.data)
+    if (sheetRes.data.modifiedCount > 0) {
+
+      reset()
+      Swal.fire({
+        position: "top",
+        icon: "success",
+        title: 'is Updated to the Work Sheet',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+
+  }
 
 
 
@@ -87,92 +87,92 @@ const [selectedUser, setSelectedUser] = useState(null)
           <tbody>
             {/* row 1 */}
             {
-              sheets.map((sheet, index) => <tr className='font-roboto font-semibold text-black '  key={sheet._id}>
+              sheets.map((sheet, index) => <tr className='font-roboto font-semibold text-black ' key={sheet._id}>
                 <th className='text-xs md:text-lg text-center' >{index + 1}</th>
                 <td className='text-xs md:text-lg text-center bg-slate-200'>{sheet.tasks}</td>
                 <td className='text-xs md:text-lg text-center'>{sheet.hours}</td>
                 <td className='text-xs md:text-lg text-center bg-slate-200'>{sheet.date}</td>
                 <td className='text-xs md:text-lg text-center'><button onClick={() => handleDelete(sheet._id)} className='text-red-600 text-2xl hover:text-3xl'>
                   <MdDeleteForever /></button> </td>
-               <td className='text-xs md:text-lg text-center bg-slate-200'>
-                                                  <button
-                                                      className='text-green-600 text-2xl hover:text-3xl'
-                                                      onClick={() => setSelectedUser(sheet)}
-                                                  >
-                                                      <FaEdit/>
-                                                  </button>
-                                              </td>
+                <td className='text-xs md:text-lg text-center bg-slate-200'>
+                  <button
+                    className='text-green-600 text-2xl hover:text-3xl'
+                    onClick={() => setSelectedUser(sheet)}
+                  >
+                    <FaEdit />
+                  </button>
+                </td>
               </tr>)
             }
 
           </tbody>
         </table>
       </div>
-       {/* Modal  */}
-       {selectedUser && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="modal-box">
-                    <div >
-              
+      {/* Modal  */}
+      {selectedUser && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="modal-box">
+            <div >
+
               <h2 className='text-center lg:text-3xl md:text-2xl text-xl
                  font-bold font-roboto text-blue-700'>Update Work Sheet</h2>
               <form onSubmit={handleSubmit(onSubmit)}
-                  className="flex  flex-col gap-3 ">
-                  <div className='form-control w-full '>
-                      <span className="text-black font-bold">Tasks*</span>
-                      <select
-                      defaultValue={selectedUser.tasks} {...register("tasks", { required: true })}
-                          className="select select-bordered  text-blue-700 font-semibold w-full bg-opacity-30 rounded-none text-xl ">
-                          <option disabled value="default">Roles </option>
-                          <option value="Sales">Sales</option>
-                          <option value="Support">Support</option>
-                          <option value="Content">Content</option>
-                          <option value="Paper-work">Paper-work</option>
+                className="flex  flex-col gap-3 ">
+                <div className='form-control w-full '>
+                  <span className="text-black font-bold">Tasks*</span>
+                  <select
+                    defaultValue={selectedUser.tasks} {...register("tasks", { required: true })}
+                    className="select select-bordered  text-blue-700 font-semibold w-full bg-opacity-30 rounded-none text-xl ">
+                    <option disabled value="default">Roles </option>
+                    <option value="Sales">Sales</option>
+                    <option value="Support">Support</option>
+                    <option value="Content">Content</option>
+                    <option value="Paper-work">Paper-work</option>
 
 
-                      </select>
-                  </div>
-                  
-                  <div className=" ">
-
-                      <span className="text-black font-bold">Hours*</span>
-
-                      <input type="number" 
-                      defaultValue={selectedUser.hours} {...register('hours', { required: true })} placeholder="Hours"
-                          className="input text-black font-semibold w-full bg-opacity-30 rounded-none input-bordered" />
-
-                  </div>
-                  <div className=" ">
-
-                      <span  className="text-black font-bold">Date*</span>
-                      <input defaultValue={selectedUser.date}
-                       type="date" {...register('date', { required: true })}
-
-
-                          className="input text-black font-semibold w-full bg-opacity-30 rounded-none input-bordered" />
-
-                  </div>
-
-                  <div className="flex justify-end gap-2 mt-4">
-                                <button
-                                    type="button"
-                                    className="btn "
-                                    onClick={() => setSelectedUser(null)}
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="btn bg-green-600 text-white font-bold"
-                                >
-                                    Update
-                                </button>
-                            </div>
-              </form>
-          </div>
-                    </div>
+                  </select>
                 </div>
-            )}
+
+                <div className=" ">
+
+                  <span className="text-black font-bold">Hours*</span>
+
+                  <input type="number"
+                    defaultValue={selectedUser.hours} {...register('hours', { required: true })} placeholder="Hours"
+                    className="input text-black font-semibold w-full bg-opacity-30 rounded-none input-bordered" />
+
+                </div>
+                <div className=" ">
+
+                  <span className="text-black font-bold">Date*</span>
+                  <input defaultValue={selectedUser.date}
+                    type="date" {...register('date', { required: true })}
+
+
+                    className="input text-black font-semibold w-full bg-opacity-30 rounded-none input-bordered" />
+
+                </div>
+
+                <div className="flex justify-end gap-2 mt-4">
+                  <button
+                    type="button"
+                    className="btn "
+                    onClick={() => setSelectedUser(null)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn bg-green-600 text-white font-bold"
+                  >
+                    Update
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

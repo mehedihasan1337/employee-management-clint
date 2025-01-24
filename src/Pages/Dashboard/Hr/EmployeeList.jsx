@@ -97,8 +97,8 @@ const EmployeeList = () => {
                                         onClick={() => toggleVerify(employee._id)}
                                     >
                                         {verified[employee._id] ? (
-                                             <TiDeleteOutline className="text-red-600 text-3xl" />
-                                            
+                                            <TiDeleteOutline className="text-red-600 text-3xl" />
+
                                         ) : (
                                             <IoMdCheckmarkCircle className="text-green-500 text-3xl" />
                                         )}
@@ -157,7 +157,8 @@ const EmployeeList = () => {
                                             </form>
                                         </div>
                                     </dialog></td>
-                                <td className='text-xs md:text-lg text-center bg-slate-200 ' ><TbListDetails className=' bg-blue-400  hover:bg-blue-600 hover:text-white rounded-lg text-3xl  px-1' /></td>
+                                <td className='text-xs md:text-lg text-center bg-slate-200 ' ><TbListDetails className=' bg-blue-400 
+                                 hover:bg-blue-600 hover:text-white rounded-lg text-3xl  px-1' /></td>
                             </tr>)
                         }
 
