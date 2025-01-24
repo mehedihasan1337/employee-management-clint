@@ -62,6 +62,8 @@ const Payroll = () => {
                                                     <CheckoutForm name={pay?.name}
                                                      email={pay?.email} 
                                                      month={pay?.month} 
+                                                     photoURL={pay?.photoURL}
+                                                     designation={pay?.designation}
                                                    year={ pay?.year} 
                                                    amount={pay?.salary}></CheckoutForm>
 

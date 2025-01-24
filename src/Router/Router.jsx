@@ -15,6 +15,8 @@ import EmployeeList from "../Pages/Dashboard/Hr/EmployeeList";
 import Progress from "../Pages/Dashboard/Hr/Progress";
 import AllEmployeeList from "../Pages/Dashboard/Admin/AllEmployeeList";
 import Payroll from "../Pages/Dashboard/Admin/Payroll";
+import ErrorPage from "../components/ErrorPage";
+import Details from "../Pages/Dashboard/Hr/Details";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +57,10 @@ const router = createBrowserRouter([
         path:"progress",
         element:<Progress></Progress>
       },
+      {
+        path:"details/:slug",
+        element:<Details></Details>
+      },
       // admin
       {
         path:"all-employee-list",
@@ -74,7 +80,11 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register></Register>
-  }
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>
+  },
 ]);
 
 export default router;

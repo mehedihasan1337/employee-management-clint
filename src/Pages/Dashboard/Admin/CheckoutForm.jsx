@@ -4,7 +4,7 @@ import usePay from '../../../hooks/usePay';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 
-const CheckoutForm = ({ amount,name,email,month,year }) => {
+const CheckoutForm = ({ amount,name,email,month,year ,photoURL,designation }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [paymentSuccess, setPaymentSuccess] = useState(false);
@@ -55,9 +55,12 @@ const CheckoutForm = ({ amount,name,email,month,year }) => {
                     console.log('transaction id', paymentIntent.id)
                     const payment={
                         email:email,
+                        name:name,
+                        photoURL:photoURL,
                         salary:amount,
                         month:month, 
                         year:year,
+                        designation:designation,
                         transactionId:paymentIntent.id,
                         date:new Date(),
                         status:'pending'

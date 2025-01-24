@@ -6,6 +6,7 @@ import { IoMdCheckmarkCircle } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { TiDeleteOutline } from 'react-icons/ti';
+import { Link } from 'react-router-dom';
 
 const EmployeeList = () => {
 
@@ -38,6 +39,7 @@ const EmployeeList = () => {
         const payRqs = {
 
             name: employee?.name,
+            photoURL: employee?.photoURL,
             email: employee?.email,
             salary: parseFloat(employee?.salary),
             accountNo: parseFloat(employee?.accountNo),
@@ -59,7 +61,7 @@ const EmployeeList = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
-             reset()
+            reset()
         }
 
     }
@@ -158,8 +160,14 @@ const EmployeeList = () => {
                                             </form>
                                         </div>
                                     </dialog></td>
-                                <td className='text-xs md:text-lg text-center bg-slate-200 ' ><TbListDetails className=' bg-blue-400 
-                                 hover:bg-blue-600 hover:text-white rounded-lg text-3xl  px-1' /></td>
+                                <td className='text-xs md:text-lg text-center bg-slate-200 ' >
+                                    <Link to={`/dashboard/details/${employee.email}`}>
+                                        <button>
+                                            <TbListDetails className=' bg-blue-400 
+                                 hover:bg-blue-600 hover:text-white rounded-lg text-3xl  px-1' />
+                                        </button>
+                                    </Link>
+                                </td>
                             </tr>)
                         }
 
