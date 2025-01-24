@@ -10,7 +10,7 @@ import { TiDeleteOutline } from 'react-icons/ti';
 const EmployeeList = () => {
 
     const axiosSecure = useAxiosSecure()
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, reset } = useForm()
     const [verified, setVerified] = useState(localStorage.getItem('verify') || 'verified');
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const EmployeeList = () => {
             [id]: !prev[id],
         }));
     };
-    const { data: users = [] } = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await axiosSecure.get('/users')
@@ -59,6 +59,7 @@ const EmployeeList = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+             reset()
         }
 
     }

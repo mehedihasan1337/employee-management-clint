@@ -96,7 +96,7 @@ const CheckoutForm = ({ amount,name,email,month,year }) => {
                         },
                     }}
                 ></CardElement>
-                <button className='btn text-2xl btn-primary' type="submit" disabled={!stripe  }>
+                <button className='btn text-2xl btn-primary' type="submit" disabled={!stripe }>
                     Pay  ${amount}
                     
                 </button>

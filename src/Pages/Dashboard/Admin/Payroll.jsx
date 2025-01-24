@@ -8,10 +8,12 @@ import CheckoutForm from './CheckoutForm';
 import usePay from '../../../hooks/usePay';
 
 
+
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_PK)
 const Payroll = () => {
 
     const [pays] = usePay()
+  
 
 
     return (
@@ -29,9 +31,9 @@ const Payroll = () => {
                                 <th className='text-center bg-blue-600'>Designation</th>
                                 <th className='text-center bg-blue-500'>Month-Year</th>
                                 <th className='text-center bg-blue-600'>Amount</th>
-                                <th className='text-center bg-blue-500'>Transaction-Id</th>
-                                <th className='text-center bg-blue-600'>Pay</th>
-                                <th className='text-center bg-blue-500'>payment-date </th>
+                              
+                                <th className='text-center bg-blue-500'>Pay</th>
+                              
                             </tr>
                         </thead>
                         <tbody>
@@ -44,10 +46,8 @@ const Payroll = () => {
                                     <td className='text-xs md:text-lg  bg-slate-200'>{pay.designation}</td>
                                     <td className='text-xs md:text-lg '>{pay.month}-{pay.year}</td>
                                     <td className='text-xs md:text-lg text-center bg-slate-200'>{pay.salary}</td>
-                                    <td className='text-xs md:text-lg '>
-
-                                    </td>
-                                    <td className='text-xs md:text-lg text-center bg-slate-200'>
+       
+                                    <td className='text-xs md:text-lg text-center '>
                                         <button className="flex gap-1 items-center  bg-green-500  hover:bg-green-600 rounded-lg px-1
                                            text-white " onClick={() => document.getElementById(`${pay?._id}`).showModal()}><TbCreditCardPay /> Pay</button>
                                         <dialog id={pay?._id} className="modal">
@@ -59,7 +59,11 @@ const Payroll = () => {
                                                 <h2 className='text-2xl text-left  text-black '>  Card No: <span className='text-green-600'>{pay?.accountNo}</span></h2>
 
                                                 <Elements stripe={stripePromise}>
-                                                    <CheckoutForm name={pay?.name} email={pay?.email} month={pay?.month} year={ pay?.year} amount={pay?.salary}></CheckoutForm>
+                                                    <CheckoutForm name={pay?.name}
+                                                     email={pay?.email} 
+                                                     month={pay?.month} 
+                                                   year={ pay?.year} 
+                                                   amount={pay?.salary}></CheckoutForm>
 
                                                 </Elements>
 
