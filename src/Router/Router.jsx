@@ -17,6 +17,8 @@ import AllEmployeeList from "../Pages/Dashboard/Admin/AllEmployeeList";
 import Payroll from "../Pages/Dashboard/Admin/Payroll";
 import ErrorPage from "../components/ErrorPage";
 import Details from "../Pages/Dashboard/Hr/Details";
+import AdminRoute from "./AdminRoute";
+import HrRoute from "./HrRoute";
 
 const router = createBrowserRouter([
   {
@@ -39,11 +41,7 @@ const router = createBrowserRouter([
         path:"work-sheet",
         element:<WorkSheet></WorkSheet>
       },
-      // {
-      //   path:"UpdateSheet/:id",
-      //   element:<UpdateWorkSheet></UpdateWorkSheet>,
-        
-      // },
+    
       {
         path:"payment-history",
         element:<PaymentHistory></PaymentHistory>
@@ -51,24 +49,24 @@ const router = createBrowserRouter([
       // hr
       {
         path:"employee-list",
-        element:<EmployeeList></EmployeeList>
+        element:<HrRoute><EmployeeList></EmployeeList></HrRoute>
       },
       {
         path:"progress",
-        element:<Progress></Progress>
+        element:<HrRoute><Progress></Progress></HrRoute>
       },
       {
         path:"details/:slug",
-        element:<Details></Details>
+        element:<HrRoute><Details></Details></HrRoute>
       },
       // admin
       {
         path:"all-employee-list",
-        element:<AllEmployeeList></AllEmployeeList>
+        element:<AdminRoute><AllEmployeeList></AllEmployeeList></AdminRoute>
       },
       {
         path:"payroll",
-        element:<Payroll></Payroll>
+        element:<AdminRoute><Payroll></Payroll></AdminRoute>
       },
       
     ]

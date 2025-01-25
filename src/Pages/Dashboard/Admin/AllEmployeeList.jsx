@@ -93,7 +93,7 @@ const AllEmployeeList = () => {
     return (
         <div>
             <h2 className='font-roboto  lg:text-3xl mb-3
-             text-black font-bold text-xs md:text-lg'> Employee: {filteredUsers?.length}</h2>
+             text-black font-bold text-xs md:text-lg'> Users: {filteredUsers?.length}</h2>
             <div className="overflow-x-auto w-60 sm:w-96 md:w-11/12 lg:w-full  text-xs">
                 <table className="table table-xs font-roboto  ">
                     {/* head */}

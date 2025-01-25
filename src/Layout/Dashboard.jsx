@@ -1,14 +1,15 @@
 
 import { NavLink, Outlet } from 'react-router-dom';
 import Footer from '../components/Footer';
-// import useAdmin from '../hooks/useAdmin';
-// import useHr from '../hooks/useHr';
+import useAdmin from '../hooks/useAdmin';
+import useHr from '../hooks/useHr';
+
 
 
 const Dashboard = () => {
 
-    // const [isAdmin] = useAdmin()
-    // const [isHr] = useHr()
+    const [isAdmin] = useAdmin()
+    const [isHr] = useHr()
 
 
 
@@ -22,82 +23,58 @@ const Dashboard = () => {
                 </div>
 
 
-                {/* {
+                {
                     isAdmin ? <>
-                        <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                            <NavLink className="uppercase  "
-                                to="/dashboard/all-employee-list">
-                                All Employee List</NavLink>
-                        </div>
-                        <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                            <NavLink className="uppercase  "
-                                to="/dashboard/payroll">
-                                payroll</NavLink>
-                        </div>
+                         <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
+                    <NavLink className="uppercase  "
+                        to="/dashboard/all-employee-list">
+                        All-Employee-List</NavLink>
+                </div>
+                         <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
+                    <NavLink className="uppercase  "
+                        to="/dashboard/payroll">
+                        payroll</NavLink>
+                </div>
                     </> :
                         <>
 
                         {
                             isHr? <>
                              <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                                <NavLink className="uppercase  "
-                                    to="/dashboard/employee-list">
-                                    Employee List</NavLink>
-                            </div>
+                    <NavLink className="uppercase  "
+                        to="/dashboard/employee-list">
+                        Employee-List</NavLink>
+                </div>
                             <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                                <NavLink className="uppercase  "
-                                    to="/dashboard/progress">
-                                    Progress</NavLink>
-                            </div>
+                    <NavLink className="uppercase  "
+                        to="/dashboard/progress">
+                        Progress</NavLink>
+                </div>
                             </>:<>
-                            <div className='lg:w-10/12 p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                                <NavLink className="uppercase  "
-                                    to="/dashboard/work-sheet">
-                                    Work Sheet</NavLink>
-                            </div>
-                            <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                                <NavLink className="uppercase  "
-                                    to="/dashboard/payment-history">
-                                    Payment History</NavLink>
-                            </div>
+                           <div className='lg:w-10/12 p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
+                    <NavLink className="uppercase  "
+                        to="/dashboard/work-sheet">
+                        Work-Sheet</NavLink>
+                </div>
+                           <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
+                    <NavLink className="uppercase  "
+                        to="/dashboard/payment-history">
+                        Payment-History</NavLink>
+                </div>
                             </>
                         }
                            
                            
                         </>
-                } */}
+                }
 
-                <div className='lg:w-10/12 p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                    <NavLink className="uppercase  "
-                        to="/dashboard/work-sheet">
-                        Work-Sheet</NavLink>
-                </div>
-                <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                    <NavLink className="uppercase  "
-                        to="/dashboard/payment-history">
-                        Payment-History</NavLink>
-                </div>
-                <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                    <NavLink className="uppercase  "
-                        to="/dashboard/employee-list">
-                        Employee-List</NavLink>
-                </div>
-                <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                    <NavLink className="uppercase  "
-                        to="/dashboard/progress">
-                        Progress</NavLink>
-                </div>
+                
+                
+               
+              
 
-                <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                    <NavLink className="uppercase  "
-                        to="/dashboard/all-employee-list">
-                        All-Employee-List</NavLink>
-                </div>
-                <div className='lg:w-10/12 md:p-1 mx-auto lg:mt-5 mt-1 text-xs md:text-lg text-white'>
-                    <NavLink className="uppercase  "
-                        to="/dashboard/payroll">
-                        payroll</NavLink>
-                </div>
+               
+              
 
 
 

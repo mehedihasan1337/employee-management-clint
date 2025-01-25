@@ -9,105 +9,95 @@ const CheckoutForm = ({ amount,name,email,month,year ,photoURL,designation }) =>
     const elements = useElements();
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-   
-    const axiosSecure =useAxiosSecure()
+    const [isLoading, setIsLoading] = useState(false);
   
+    const axiosSecure = useAxiosSecure();
   
-
     const handleSubmit = async (event) => {
-        event.preventDefault()
-        if (!stripe || !elements) {    
-            return;
+      event.preventDefault();
+      if (!stripe || !elements) return;
+  
+      const card = elements.getElement(CardElement);
+      if (!card) return;
+  
+      try {
+        setIsLoading(true);
+        // Create Payment Intent
+        const { data } = await axiosSecure.post('/create-payment-intent', { amount });
+        const { clientSecret } = data;
+  
+        // Confirm Payment
+        const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card,
+            billing_details: {
+              name,
+              email,
+            },
+          },
+        });
+  
+        if (error) {
+          setErrorMessage(error.message);
+          return;
         }
-        const card = elements.getElement(CardElement)
-        if (card === null) {
-            return
+  
+        if (paymentIntent.status === 'succeeded') {
+          setPaymentSuccess(true);
+          const payment = {
+            email,
+            name,
+            photoURL,
+            salary: amount,
+            month,
+            year,
+            designation,
+            transactionId: paymentIntent.id,
+            date: new Date(),
+            status: 'pending',
+          };
+  
+          await axiosSecure.post('/payments', payment);
         }
-        // 
-        try {
-            // Use Axios to call the backend for creating a payment intent
-            const response = await axiosSecure.post('/create-payment-intent', {
-              amount, 
-            });
-      
-            const { clientSecret } = response.data;
-            console.log("Amount to be charged:", amount);
-            console.log("Stripe client secret:", clientSecret);
-            // Confirm the payment
-            const {paymentIntent,email:confirmError} = await stripe.confirmCardPayment(clientSecret, {
-              payment_method: {
-                card: card,
-                billing_details: {
-                  name:name, 
-                  email:email,
-               
-
+      } catch (err) {
+        setErrorMessage('Failed to process payment. Please try again.');
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    return (
+      <div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 mt-3">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  color: '#424770',
+                  '::placeholder': {
+                    color: '#aab7c4',
+                  },
+                },
+                invalid: {
+                  color: '#9e2146',
                 },
               },
-             
-            });
-            if(confirmError){
-                console.log('confirm error')
-              }
-              else{
-                console.log('payment intent',paymentIntent)
-                if(paymentIntent.status === 'succeeded'){
-                    console.log('transaction id', paymentIntent.id)
-                    const payment={
-                        email:email,
-                        name:name,
-                        photoURL:photoURL,
-                        salary:amount,
-                        month:month, 
-                        year:year,
-                        designation:designation,
-                        transactionId:paymentIntent.id,
-                        date:new Date(),
-                        status:'pending'
-        
-                      }
-                      const res= await axiosSecure.post('/payments',payment)
-                      console.log('payment save',res)
-                }
-              }
-         
-          } catch (error) {
-            setErrorMessage('Failed to process payment. Please try again.');
-            console.error('Payment Error:', error);
-          }
-
-    }
-   
-
-    return (
-        <div>
-            <form onSubmit={handleSubmit}
-                className="lg:flex-row flex-col gap-3 mt-3 lg:items-center">
-                <CardElement
-                    options={{
-                        style: {
-                            base: {
-                                fontSize: '16px',
-                                color: '#424770',
-                                '::placeholder': {
-                                    color: '#aab7c4',
-                                },
-                            },
-                            invalid: {
-                                color: '#9e2146',
-                            },
-                        },
-                    }}
-                ></CardElement>
-                <button className='btn text-2xl btn-primary' type="submit" disabled={!stripe }>
-                    Pay  ${amount}
-                    
-                </button>
-                {paymentSuccess && <p>Payment successful!</p>}
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-            </form>
-        </div>
+            }}
+          />
+          <button
+            className="btn text-2xl btn-primary"
+            type="submit"
+            disabled={!stripe || isLoading}
+          >
+            {isLoading ? 'Processing...' : `Pay $${amount}`}
+          </button>
+          {paymentSuccess && <p style={{ color: 'green' }}>Payment successful!</p>}
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+        </form>
+      </div>
     );
-};
-
-export default CheckoutForm;
+  };
+  
+  export default CheckoutForm;
