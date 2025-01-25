@@ -18,15 +18,17 @@ const Navber = () => {
                     <img id='home' className='md:w-10 w-6' src="https://i.ibb.co.com/98qSn7J/Employee-Logo.png" alt="" />
                     <h2 className='lg:text-2xl hidden lg:block font-roboto font-bold text-white'>Employee M.</h2>
                 </div>
-                <div className='gap-3'>
+                <div className='md:gap-3 gap-1'>
            {
             user ? <>
             <NavLink to="/dashboard" className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg  ">Dashboard</NavLink>
             <NavLink to="/" className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg  ">Home</NavLink>
+           
+            <a className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg  " href="#contact">Contact </a>
             </>:<>
             <NavLink to="/login" className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg ">Login</NavLink>
                     <NavLink to="/register" className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg  ">Register</NavLink>
-                    
+                    <a className="border border-black text-black hover:bg-blue-500 hover:text-white font-bold px-1 rounded-sm text-xs md:text-lg  " href="#contact">Contact </a>  
             </>
            }
                 </div>

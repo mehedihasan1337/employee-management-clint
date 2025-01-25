@@ -4,55 +4,86 @@ import { Link, useNavigate } from 'react-router-dom';
 import registerLottie from '../assets/registerLottie.json'
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../Provider/AuthProvider';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../hooks/useAxiosPublic';
 import GoogleLogin from './SocialLogin/GoogleLogin';
 
-
+const image_hosting_key = import.meta.env.VITE_IMGBB_API_KEY
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 const Register = () => {
     const axiosPublic = useAxiosPublic()
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const { createUser, updateUserProfile } = useContext(AuthContext)
     const navigate = useNavigate()
-    const onSubmit = (data) => {
-        console.log(data)
-        createUser(data.email, data.password)
-            .then(result => {
-                const loginUser = result.user
-                console.log(loginUser)
-                updateUserProfile(data.name, data.photoURL)
-                    .then(() => {
-                        const userInfo = {
-                            name: data.name,
-                            email: data.email,
-                            role: data.role,
-                            accountNo: parseFloat(data.accountNo),
-                            salary: parseFloat(data.salary),
-                            designation: data.designation,
-                            photoURL:data.photoURL
+    const [photoUploading, setPhotoUploading] = useState(false);
+    
+    const onSubmit = async (data) => {
+        console.log(data);
+    
+    
+        const photoFile = data.photoURL[0]
+        if (!photoFile) {
+            Swal.fire({
+                title: "Error",
+                text: "Photo is required!",
+                icon: "error",
+                confirmButtonText: "Okay",
+            });
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append("image", photoFile);
+        setPhotoUploading(true)
+    
+        try {
+      
+            const imgbbResponse = await axiosPublic.post(image_hosting_api, formData);
+            const photoURL = imgbbResponse.data.data.display_url;
 
-                        }
-                        axiosPublic.post('/users', userInfo)
-                            .then(res => {
-                                if (res.data.insertedId) {
-                                    console.log('user added to the data base')
-                                    reset()
-                                    Swal.fire({
-                                        title: "success!",
-                                        icon: "success",
-                                        draggable: true
-                                    });
-                                    navigate("/")
-                                }
-                            })
-
-                    })
-            })
-    }
-
+            const result = await createUser(data.email, data.password);
+            const loginUser = result.user;
+            console.log("User created:", loginUser);
+    
+            await updateUserProfile(data.name, photoURL);
+    
+            const userInfo = {
+                name: data.name,
+                email: data.email,
+                role: data.role,
+                accountNo: parseFloat(data.accountNo),
+                salary: parseFloat(data.salary),
+                designation: data.designation,
+                photoURL,
+            };
+    
+            const res = await axiosPublic.post("/users", userInfo);
+            if (res.data.insertedId) {
+                console.log("User added to the database");
+                reset();
+                Swal.fire({
+                    title: "Success!",
+                    icon: "success",
+                    text: "Your account has been created!",
+                    confirmButtonText: "Okay",
+                });
+                navigate("/");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            Swal.fire({
+                title: "Error",
+                text: "Failed to complete registration. Please try again.",
+                icon: "error",
+                confirmButtonText: "Okay",
+            });
+        } finally {
+            setPhotoUploading(false)
+        }
+    };
 
     return (
 
@@ -108,10 +139,11 @@ const Register = () => {
                                 <label className="label">
                                     <span className="text-black font-bold">Bank Account No*</span>
                                 </label>
-                                <input type="number" {...register('accountNo', { required: true,
+                                <input type="number" {...register('accountNo', {
+                                    required: true,
                                     minLength: 16,
                                     maxLength: 16,
-                                 })} placeholder="Bank Account No"
+                                })} placeholder="Bank Account No"
                                     className="input text-black font-semibold w-full bg-opacity-30 rounded-none input-bordered" />
                                 {errors.accountNo && <span className="text-red-600 ">Bank Account No is required</span>}
                                 {errors.accountNo?.type === 'minLength' &&
@@ -178,7 +210,7 @@ const Register = () => {
 
                             </div>
                             {/* photo */}
-                            {/* <div>
+                            <div>
                                 <label className="label">
                                     <span className="text-black font-bold">Upload Photo*</span>
                                 </label>
@@ -186,28 +218,26 @@ const Register = () => {
                                     type="file" className="file-input  text-black font-semibold w-full bg-opacity-30 rounded-none " />
                                 {errors.photoURL && <span className="text-red-600 ">Photo is required</span>}
 
-                            </div> */}
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Photo Url</span>
-                                </label>
-                                <input type="text" {...register("photoURL",
-                                    { required: true })}
-                                    placeholder="Photo Url" className="input input-bordered" />
-                                {errors.photoURL && <span className="text-red-500">Photo URl is required</span>}
                             </div>
-                         
+                          
+
 
 
                             {/* disabled={disabled}  */}
                             <div className="form-control mt-6">
-                                <button className="btn rounded-none text-white text-xl font-bold btn-primary">Register</button>
+                                <button
+                                    type="submit"
+                                    className="btn rounded-none text-white text-xl font-bold btn-primary mt-6"
+                                    disabled={photoUploading}
+                                >
+                                    {photoUploading ? "Uploading..." : "Register"}
+                                </button>
                             </div>
                         </form>
                         <div className='divider font-bold font-roboto text-xl'>or</div>
                         <div className='text-center text-4xl'>
-                        <GoogleLogin></GoogleLogin>
-                        
+                            <GoogleLogin></GoogleLogin>
+
                         </div>
                     </div>
                 </div>

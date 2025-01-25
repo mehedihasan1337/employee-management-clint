@@ -112,7 +112,8 @@ const Dashboard = () => {
                 <div className='w-10/12 mx-auto mt-5 text-xs md:text-lg text-white'>
                     <NavLink className="uppercase  "
                         to="/">
-                        Contact</NavLink>
+                         Contact</NavLink>
+                        
                 </div>
 
             </div>
