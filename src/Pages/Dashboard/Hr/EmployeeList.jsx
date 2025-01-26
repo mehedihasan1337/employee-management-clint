@@ -33,6 +33,7 @@ const EmployeeList = () => {
         }
     })
     const employees = users.filter(user => user.role === "employee")
+    refetch()
     const onSubmit = async (data, employee) => {
         // console.log(data)
 
