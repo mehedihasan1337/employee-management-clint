@@ -12,7 +12,7 @@ const GoogleLogin = () => {
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
-                console.log(result.user)
+                // console.log(result.user)
                   
                         const userInfo = {
                             name: result.user?.displayName,
@@ -24,7 +24,7 @@ const GoogleLogin = () => {
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 if (res.data) {
-                                    console.log('user added to the data base')
+                                    // console.log('user added to the data base')
                                     
                                     Swal.fire({
                                         title: "success!",

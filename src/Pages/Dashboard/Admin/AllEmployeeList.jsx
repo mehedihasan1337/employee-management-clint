@@ -25,7 +25,7 @@ const AllEmployeeList = () => {
     const filteredUsers = users.filter(user => user.role === "employee" || user.role === "hr")
 
     const onSubmit = async (data) => {
-        console.log(data)
+        // console.log(data)
 
         const workSheet = {
 
@@ -33,7 +33,7 @@ const AllEmployeeList = () => {
 
         }
         const salaryRes = await axiosSecure.patch(`/users/update/${selectedUser._id}`, workSheet)
-        console.log(salaryRes.data)
+        // console.log(salaryRes.data)
         if (salaryRes.data.modifiedCount > 0) {
 
 
@@ -53,7 +53,7 @@ const AllEmployeeList = () => {
     const handleMakeHr = user => {
         axiosSecure.patch(`/users/makeHr/${user._id}`)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.modifiedCount > 0) {
                     refetch()
                     Swal.fire({
@@ -69,7 +69,7 @@ const AllEmployeeList = () => {
     const handleFireUser = user => {
         axiosSecure.patch(`/users/fire/${user._id}`,{ isFired: true })
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.modifiedCount > 0) {
                     
                     Swal.fire({

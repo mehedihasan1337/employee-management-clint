@@ -9,12 +9,12 @@ import useAuth from '../../../hooks/useAuth';
 
 const WorkSheet = () => {
     const{user}=useAuth()
-    console.log(user)
+    // console.log(user)
     const { register, handleSubmit,reset } = useForm()
     const axiosSecure= useAxiosSecure()
   
     const onSubmit =async (data) => {
-        console.log(data)
+        // console.log(data)
         
             const workSheet={
                 tasks:data.tasks,
@@ -26,7 +26,7 @@ const WorkSheet = () => {
 
             }
             const sheetRes =await axiosSecure.post('/sheets',workSheet)
-            console.log(sheetRes.data)
+            // console.log(sheetRes.data)
             if(sheetRes.data.insertedId){
                 
                 reset()

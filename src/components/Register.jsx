@@ -21,7 +21,7 @@ const Register = () => {
     const [photoUploading, setPhotoUploading] = useState(false);
     
     const onSubmit = async (data) => {
-        console.log(data);
+        // console.log(data);
     
     
         const photoFile = data.photoURL[0]
@@ -46,7 +46,7 @@ const Register = () => {
 
             const result = await createUser(data.email, data.password);
             const loginUser = result.user;
-            console.log("User created:", loginUser);
+            // console.log("User created:", loginUser);
     
             await updateUserProfile(data.name, photoURL);
     
@@ -62,7 +62,7 @@ const Register = () => {
     
             const res = await axiosPublic.post("/users", userInfo);
             if (res.data.insertedId) {
-                console.log("User added to the database");
+                // console.log("User added to the database");
                 reset();
                 Swal.fire({
                     title: "Success!",

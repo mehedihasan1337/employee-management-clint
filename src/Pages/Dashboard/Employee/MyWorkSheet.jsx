@@ -43,7 +43,7 @@ const MyWorkSheet = () => {
     });
   }
   const onSubmit = async (data) => {
-    console.log(data)
+    // console.log(data)
 
     const workSheet = {
       tasks: data.tasks,
@@ -52,7 +52,7 @@ const MyWorkSheet = () => {
       email: user.email
     }
     const sheetRes = await axiosSecure.patch(`/sheets/update/${selectedUser._id}`, workSheet)
-    console.log(sheetRes.data)
+    // console.log(sheetRes.data)
     if (sheetRes.data.modifiedCount > 0) {
 
       reset()

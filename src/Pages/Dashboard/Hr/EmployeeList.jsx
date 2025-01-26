@@ -34,7 +34,7 @@ const EmployeeList = () => {
     })
     const employees = users.filter(user => user.role === "employee")
     const onSubmit = async (data, employee) => {
-        console.log(data)
+        // console.log(data)
 
         const payRqs = {
 
@@ -51,7 +51,7 @@ const EmployeeList = () => {
 
         }
         const payRes = await axiosSecure.post('/pay', payRqs)
-        console.log(payRes.data)
+        // console.log(payRes.data)
         if (payRes.data.insertedId) {
 
             Swal.fire({
